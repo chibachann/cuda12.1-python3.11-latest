@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  cuda-python-shell:
+    image: chibachann/cuda12.1-python3.11:latest
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    volumes:
+      - ./:/app
+    working_dir: /app
+    deploy:
+      restart_policy:
+        condition: none
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
